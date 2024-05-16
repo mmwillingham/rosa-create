@@ -28,7 +28,7 @@ provider "aws" {
   access_key = var.AWS_ACCESS_KEY_ID
   secret_key = var.AWS_SECRET_ACCESS_KEY
   bucket = var.bucket
-  dynamodb_table = var.dynamodb_table
+  dynamoDB_table = var.dynamodb_table
   key = var.key
 }
 
