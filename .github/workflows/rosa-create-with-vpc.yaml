@@ -33,7 +33,7 @@ jobs:
       
       - name: Terraform Plan
         id: plan
-        run: terraform plan  -backend-config=backend.tfvars -lock=false
+        run: terraform plan -backend-config=backend.tfvars -lock=false
       
       - name: Terraform Apply
         id: apply
