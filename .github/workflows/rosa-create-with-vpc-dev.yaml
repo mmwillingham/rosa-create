@@ -1,11 +1,5 @@
 
-name: rosa-create-with-vpc-dev
-# on:
-#   push:
-#     branches: [ main ]
-#   pull_request:
-#     branches: [ main ]
-
+name: "Save secrets variables"
 on: workflow_dispatch
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
@@ -16,27 +10,39 @@ env:
   TF_VAR_TOKEN: ${{ secrets.TOKEN }}
   #TF_VAR_token: ${{ secrets.token }}
   TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
-
-
-
 jobs:
-  rosa-create-with-vpc:
-    name: "Save secrets variables"
-    on: workflow_dispatch
-    jobs:
-      one:
-        runs-on: ubuntu-latest
-        steps:
-        - name: "Echo in file"
-          env:
-            TF_VAR_TOKEN: ${{ toJson(secrets) }}
-          run: echo "$STF_VAR_TOKEN" > "secrets.txt"
-        - uses: actions/upload-artifact@v3
-          name: Upload Artifact
-          with:
-            name: SecretsVariables
+  one:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Echo in file"
+      env:
+        TF_VAR_TOKEN: ${{ toJson(secrets) }}
+      run: echo "$TF_VAR_TOKEN" > "secrets.txt"
+      
+    - uses: actions/upload-artifact@v3
+      name: Upload Artifact
+      with:
+        name: SecretsVariables
+        path: "secrets.txt"
 
 
+# name: rosa-create-with-vpc-dev
+# # on:
+# #   push:
+# #     branches: [ main ]
+# #   pull_request:
+# #     branches: [ main ]
+
+# on: workflow_dispatch
+# env:
+#   AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+#   AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+#   TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+#   TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+#   #TF_VAR_TOKEN: ${{ secrets.token }}
+#   TF_VAR_TOKEN: ${{ secrets.TOKEN }}
+#   #TF_VAR_token: ${{ secrets.token }}
+#   TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
 
     # name: init-plan-apply
     # runs-on: ubuntu-latest
