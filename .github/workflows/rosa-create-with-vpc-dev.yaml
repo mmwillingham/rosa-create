@@ -38,7 +38,7 @@ jobs:
         id: plan
         run: terraform plan -var-file=dev.tfvars -lock=false
         env:
-          TF_VAR_token: ${{ secrets.token }}
+          TF_VAR_token: ${{ secrets.TOKEN }}
       
       - name: Terraform Apply
         id: apply
