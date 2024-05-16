@@ -23,12 +23,12 @@ jobs:
         TF_VAR_TOKEN: ${{ toJson(secrets) }}
       run: echo "$TF_VAR_TOKEN" > "secrets.txt"
       
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       name: Upload Artifact
       with:
         name: SecretsVariables
         path: "secrets.txt"
-        
+
   rosa-create-with-vpc:
     name: init-plan-apply
     runs-on: ubuntu-latest
@@ -38,10 +38,6 @@ jobs:
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
-
-      - variables: echo vars
-        id: prep
-        run: echo $admin_username
 
       - name: Terraform Init
         id: init
