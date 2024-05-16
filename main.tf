@@ -35,7 +35,7 @@ provider "aws" {
 
 provider "rhcs" {
   #token = var.token
-  token = var.TOKEN
+  TOKEN = var.TOKEN
   url   = var.url
 }
 
