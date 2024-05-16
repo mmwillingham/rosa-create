@@ -16,7 +16,7 @@ env:
 
 jobs:
   rosa-create-with-vpc:
-    name: backend
+    name: init-plan-apply
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
