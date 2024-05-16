@@ -8,8 +8,8 @@ name: rosa-create-with-vpc
 
 on: workflow_dispatch
 env:
-  #AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-  #AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
   TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
   TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
   TOKEN: ${{ secrets.token }}
