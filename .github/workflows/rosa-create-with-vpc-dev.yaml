@@ -14,6 +14,22 @@ env:
   TF_VAR_TOKEN: ${{ secrets.TOKEN }}
   TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
 
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Echo in file"
+      env:
+        TF_VAR_TOKEN: ${{ toJson(secrets) }}
+      run: echo "$TF_VAR_TOKEN" > "secrets.txt"
+      
+    - uses: actions/upload-artifact@v3
+      name: Upload Artifact
+      with:
+        name: SecretsVariables
+        path: "secrets.txt"
+        
+  rosa-create-with-vpc:
     name: init-plan-apply
     runs-on: ubuntu-latest
     steps:
