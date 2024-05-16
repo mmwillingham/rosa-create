@@ -3,11 +3,6 @@ variable "token" {
   sensitive = true
 }
 
-variable "TOKEN" {
-  type      = string
-  sensitive = true
-}
-
 variable "operator_role_prefix" {
   type = string
 }
