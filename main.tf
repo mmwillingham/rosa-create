@@ -95,7 +95,7 @@ resource "rhcs_cluster_rosa_classic" "rosa_sts_cluster" {
   depends_on = [time_sleep.wait_for_roles]
   version = var.openshift_version
   admin_credentials = {
-     password = var.admin_password
+     password = var.ADMIN_PASSWORD
      username = var.admin_username 
   }
   upgrade_acknowledgements_for = var.upgrade_acknowledgements_for  

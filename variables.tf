@@ -58,7 +58,7 @@ variable "admin_username" {
   type = string
 }
 
-variable "admin_password" {
+variable "ADMIN_PASSWORD" {
   type = string
 }
 
