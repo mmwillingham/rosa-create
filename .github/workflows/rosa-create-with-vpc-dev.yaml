@@ -30,13 +30,17 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - variables: echo vars
+        id: prep
+        run: echo $admin_username
+        
       - name: Terraform Init
         id: init
         run: terraform init -backend-config=backend.tfvars
       
       - name: Terraform Plan
         id: plan
-        run: echo TF_VAR_token: $TF_VAR_token & terraform plan -var-file=dev.tfvars -lock=false
+        run: terraform plan -var-file=dev.tfvars -lock=false
         #run: echo TF_VAR_token: $TF_VAR_token token: $token
         env:
           TF_VAR_token: ${{ secrets.token }}
