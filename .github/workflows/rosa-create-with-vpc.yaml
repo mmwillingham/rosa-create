@@ -12,8 +12,8 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
   TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
   TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
-  TOKEN: ${{ secrets.token }}
-  ADMIN_PASSWORD: ${{ secrets.admin_password }}
+  TF_VAR_TOKEN: ${{ secrets.token }}
+  TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
 
 
 jobs:
