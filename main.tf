@@ -27,10 +27,10 @@ provider "aws" {
   # Added these two because plan was stuck on var.AWS_ACCESS_KEY_ID
   access_key = var.AWS_ACCESS_KEY_ID
   secret_key = var.AWS_SECRET_ACCESS_KEY
-  bucket = var.bucket
-  dynamoDB_table = var.dynamodb_table
-  dynamodb_table = var.dynamodb_table
-  key = var.key
+  #bucket = var.bucket
+  #dynamoDB_table = var.dynamodb_table
+  #dynamodb_table = var.dynamodb_table
+  #key = var.key
 }
 
 provider "rhcs" {
