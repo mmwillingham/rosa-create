@@ -12,9 +12,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
   TOKEN: ${{ secrets.token }}
   ADMIN_PASSWORD: ${{ secrets.admin_password }}
-  ACCOUNT_ROLE_PREFIX: ${{ vars.account_role_prefix }}
-  OPERATOR_ROLE_PREFIX: ${{ vars.operator_role_prefix }}
-  ADMIN_USERNAME: ${{ vars.admin_username }}
+
 
 jobs:
   build:
@@ -29,7 +27,7 @@ jobs:
       
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -backend-config=backend.tfvars
       
       - name: Terraform Plan
         id: plan
