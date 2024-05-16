@@ -18,3 +18,8 @@ operator_role_prefix         = bosez-12345
 multi_az                     = false
 availability_zones           = ["us-east-2a"]
 replicas                     = 2
+
+# not sure if I need this
+bucket         = "rosa-tfstate-20240516-2"
+dynamodb_table = "rosa-tfstate-20240516-2"
+key            = "terraform.tfstate"
