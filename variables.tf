@@ -87,7 +87,7 @@ variable "replicas" {
   description = "Number of worker nodes to provision. This attribute is applicable solely when autoscaling is disabled. Single zone clusters need at least 2 nodes, multizone clusters need at least 3 nodes. Hosted clusters require that the number of worker nodes be a multiple of the number of private subnets. (default: 2)"
 }
 
-# Terraform backebd resources must already exist. Create them here: https://github.com/mmwillingham/github_actions-terraform-aws-backend/blob/main/vars.tf
+# Terraform backend resources must already exist. Create them here: https://github.com/mmwillingham/github_actions-terraform-aws-backend/blob/main/vars.tf
 
 variable "bucket" {
 }
