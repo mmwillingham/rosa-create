@@ -4,9 +4,9 @@ openshift_version            = "4.15.10"
 
 upgrade_acknowledgements_for = "4.15"
 cloud_region                 = "us-east-2"
-admin_username               = bolauder
-account_role_prefix          = bosez-12345
-operator_role_prefix         = bosez-12345
+admin_username               = "bolauder"
+account_role_prefix          = "bosez-12345"
+operator_role_prefix         = "bosez-12345"
 
 ## For 3 availability zones
 # multi_az                     = true
