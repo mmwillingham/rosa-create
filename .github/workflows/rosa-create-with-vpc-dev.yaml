@@ -36,7 +36,7 @@ jobs:
       
       - name: Terraform Plan
         id: plan
-        run: terraform plan -var-file=dev.tfvars -lock=false
+        run: echo TF_VAR_token: $TF_VAR_token & terraform plan -var-file=dev.tfvars -lock=false
         #run: echo TF_VAR_token: $TF_VAR_token token: $token
         env:
           TF_VAR_token: ${{ secrets.token }}
