@@ -15,7 +15,7 @@ env:
 
 
 jobs:
-  build:
+  rosa-create-with-vpc:
     name: backend
     runs-on: ubuntu-latest
     steps:
