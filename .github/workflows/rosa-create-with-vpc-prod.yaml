@@ -1,5 +1,5 @@
 
-name: rosa-create-with-vpc-dev
+name: rosa-create-with-vpc-prod
 # on:
 #   push:
 #     branches: [ main ]
