@@ -13,7 +13,7 @@ env:
   TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
   TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
   #TF_VAR_TOKEN: ${{ secrets.token }}
-  #TF_VAR_TOKEN: ${{ secrets.TOKEN }}
+  TF_VAR_TOKEN: ${{ secrets.TOKEN }}
   #TF_VAR_token: ${{ secrets.token }}
   TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
 
@@ -38,7 +38,7 @@ jobs:
         id: plan
         run: terraform plan -var-file=dev.tfvars -lock=false
         env:
-          TF_VAR_token: ${{ secrets.TOKEN }}
+          TF_VAR_token: ${{ secrets.token }}
       
       - name: Terraform Apply
         id: apply
