@@ -47,6 +47,9 @@ output "token-output" {
   sensitive = false
 }
 
+output=$(martin output)
+echo $output
+echo $token-output
 
 #data "aws_secretsmanager_secret" "secret_name" {
 #   name = "ocm_token"
