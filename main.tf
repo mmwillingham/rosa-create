@@ -33,12 +33,6 @@ provider "aws" {
   #key = var.key
 }
 
-provider "rhcs" {
-#  token = var.token
-  token = var.ocm_token
-  url   = var.url
-}
-
 #data "aws_secretsmanager_secret" "by-arn" {
 #  arn = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-bolauder-tfSQyu"
 #}
@@ -50,6 +44,14 @@ data "aws_secretsmanager_secret" "by-name" {
 output "secret-value" {
   value = jsondecode(data.aws_secretsmanager_secret_version.rosa-bolauder.secret_string)["ocm_token"]  
 }
+
+provider "rhcs" {
+#  token = var.token
+  token = var.ocm_token
+  url   = var.url
+}
+
+
 
 
 # +------------------------------------------------------+
@@ -108,13 +110,14 @@ resource "rhcs_cluster_rosa_classic" "rosa_sts_cluster" {
   properties = {
     rosa_creator_arn = data.aws_caller_identity.current.arn
   }
-  sts = local.sts_roles  
-  destroy_timeout = 60  
-  depends_on = [time_sleep.wait_for_roles]
-  version = var.openshift_version
-  admin_credentials = {
-     password = var.ADMIN_PASSWORD
-     username = var.admin_username 
+  sts                = local.sts_roles  
+  destroy_timeout    = 60  
+  depends_on         = [time_sleep.wait_for_roles]
+  version            = var.openshift_version
+  token              = local.ocm_token
+  admin_credentials  = {
+     password        = var.ADMIN_PASSWORD
+     username        = var.admin_username 
   }
   upgrade_acknowledgements_for = var.upgrade_acknowledgements_for  
 }
