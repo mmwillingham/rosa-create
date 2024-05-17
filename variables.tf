@@ -106,5 +106,5 @@ variable "key" {
 variable "dynamoDB_table" {
 }
 
-#variable "dynamodb_table" {
-#}
+variable "dynamodb_table" {
+}
