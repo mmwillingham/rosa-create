@@ -38,7 +38,7 @@ locals{
 
 provider "rhcs" {
 #  token = var.token
-  token = local.rosa-secrets.ocm_token
+  token = local.rosa-secrets.ocm_rosa_token
   url   = var.url
 }
 
