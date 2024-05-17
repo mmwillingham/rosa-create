@@ -42,3 +42,7 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform apply -var-file=dev.tfvars --auto-approve # -lock=false
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -var-file=dev.tfvars --auto-approve # -lock=false        
