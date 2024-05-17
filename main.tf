@@ -30,14 +30,14 @@ data "aws_secretsmanager_secret_version" "rosa-secrets" {
   secret_id = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM"
 }
 
-locals {
-  rosa-secrets = jsondecode(data.aws_secretsmanager_secret_version.rosa-secrets.ocm_token)
-}
+#locals {
+#  rosa-secrets = jsondecode(data.aws_secretsmanager_secret_version.rosa-secrets.ocm_token)
+#}
 
 
 provider "rhcs" {
 #  token = var.token
-  token = local.rosa-secrets.ocm_token
+  token = data.aws_secretsmanager_secret_version.rosa-secrets.ocm_token
   url   = var.url
 }
 
