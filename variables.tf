@@ -3,10 +3,10 @@
 #  sensitive = true
 #}
 
-#variable "ocm_token" {
-#  type      = string
-#  sensitive = true
-#}
+variable "ocm_token" {
+  type      = string
+  sensitive = true
+}
 
 
 
