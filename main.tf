@@ -42,10 +42,6 @@ data "aws_secretsmanager_secret_version" "secret_credentials" {
   secret_id = data.aws_secretsmanager_secret.secret_name.id
 }
 
-environment_variables = {
-    "ocm_token"       = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
-  }
-
 provider "rhcs" {
 #  token = var.token
   token = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
