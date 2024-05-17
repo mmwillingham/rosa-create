@@ -100,6 +100,7 @@ module "create_account_roles" {
   all_versions           = data.rhcs_versions.all
   path                   = var.path
   tags                   = var.tags    
+  token = local.rosa-secrets.ocm_token
 }
 
 resource "time_sleep" "wait_for_roles" {
