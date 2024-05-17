@@ -31,42 +31,15 @@ data "aws_secretsmanager_secret_version" "tf-secrets" {
 }
 
 locals {
-  rosa-secrets = jsondecode(
-    data.aws_secretsmanager_secret_version.tf-secrets.secret_string
-    )
+  rosa-secrets = jsondecode(data.aws_secretsmanager_secret_version.tf-secrets.secret_string)
 }
-
-resource "null_resource" "token_value" {
-  provisioner "local-exec" {
-    when    = create
-    command = "echo ${local.rosa-secrets.ocm_token} >> secret_token.txt"
-  }
-}
-
-output rosa-secrets{
-  value = local.rosa-secrets
-}
-
-output "token-output" {
-  description = "my ocm token"
-  value       = local.rosa-secrets.ocm_token
-  sensitive = false
-}
-
-#data "aws_secretsmanager_secret" "secret_name" {
-#   name = "ocm_token"
-#}
-
-#data "aws_secretsmanager_secret_version" "secret_credentials" {
-#  secret_id = data.aws_secretsmanager_secret.secret_name.id
-#}
 
 provider "rhcs" {
 #  token = var.token
 #  token = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
 #  token = local.rosa-secrets
   token = local.rosa-secrets.ocm_token
-  url   = var.url.ocm_token
+  url   = var.url
 }
 
 locals {
@@ -100,7 +73,6 @@ module "create_account_roles" {
   all_versions           = data.rhcs_versions.all
   path                   = var.path
   tags                   = var.tags    
-  token = local.rosa-secrets.ocm_token
 }
 
 resource "time_sleep" "wait_for_roles" {
@@ -127,7 +99,6 @@ resource "rhcs_cluster_rosa_classic" "rosa_sts_cluster" {
      username        = var.admin_username 
   }
   upgrade_acknowledgements_for = var.upgrade_acknowledgements_for
-  token = local.rosa-secrets.ocm_token
 }
 
 resource "rhcs_cluster_wait" "rosa_cluster" {
@@ -153,5 +124,4 @@ module "operator_roles" {
   rh_oidc_provider_url        = rhcs_cluster_rosa_classic.rosa_sts_cluster.sts.oidc_endpoint_url
   operator_roles_properties   = data.rhcs_rosa_operator_roles.operator_roles.operator_iam_roles
   tags                        = var.tags
-  token = local.rosa-secrets.ocm_token
 }
