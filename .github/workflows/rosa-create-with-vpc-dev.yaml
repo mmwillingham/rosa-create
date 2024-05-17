@@ -34,6 +34,10 @@ jobs:
     name: init-plan-apply
     runs-on: ubuntu-latest
     steps:
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+        terraform_wrapper: false
       - name: Checkout
         uses: actions/checkout@v4
 
