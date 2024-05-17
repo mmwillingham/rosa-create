@@ -43,7 +43,6 @@ data "aws_secretsmanager_secret" "by-arn" {
   arn = "arn:aws:secretsmanager:us-east-2:261642263042:secret:OCM_TOKEN-FSu3cK"
 }
 
-on: workflow_dispatch
 data "aws_secretsmanager_secret" "by-arn" {
   arn = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-bolauder-tfSQyu"
 }
@@ -54,7 +53,6 @@ data "aws_secretsmanager_secret" "by-name" {
 
 output "secret-value" {
   value = jsondecode(data.aws_secretsmanager_secret_version.rosa-bolauder.secret_string)["ocm_token"]  
-
 }
 
 
