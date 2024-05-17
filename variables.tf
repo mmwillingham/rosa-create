@@ -1,4 +1,5 @@
 variable "ocm_token" {
+  # https://console.redhat.com/openshift/token/rosa
   type      = string
   sensitive = true
 }
