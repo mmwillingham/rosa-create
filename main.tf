@@ -44,7 +44,7 @@ data "aws_secretsmanager_secret_version" "secret_credentials" {
 
 provider "rhcs" {
 #  token = var.token
-  token = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
+#  token = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
   url   = var.url
 }
 
@@ -78,7 +78,10 @@ module "create_account_roles" {
   operator_role_policies = data.rhcs_policies.all_policies.operator_role_policies
   all_versions           = data.rhcs_versions.all
   path                   = var.path
-  tags                   = var.tags    
+  tags                   = var.tags
+  environment_variables = {
+    "ocm_token"       = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
+  }
 }
 
 resource "time_sleep" "wait_for_roles" {
@@ -104,6 +107,9 @@ resource "rhcs_cluster_rosa_classic" "rosa_sts_cluster" {
      password        = var.ADMIN_PASSWORD
      username        = var.admin_username 
   }
+  environment_variables = {
+    "ocm_token"       = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
+  }  
   upgrade_acknowledgements_for = var.upgrade_acknowledgements_for  
 }
 
@@ -130,4 +136,7 @@ module "operator_roles" {
   rh_oidc_provider_url        = rhcs_cluster_rosa_classic.rosa_sts_cluster.sts.oidc_endpoint_url
   operator_roles_properties   = data.rhcs_rosa_operator_roles.operator_roles.operator_iam_roles
   tags                        = var.tags
+  environment_variables = {
+    "ocm_token"       = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
+  }
 }
