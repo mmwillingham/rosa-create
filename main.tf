@@ -31,13 +31,13 @@ data "aws_secretsmanager_secret_version" "rosa-secrets" {
 }
 
 locals {
-  rosa_token = jsondecode(data.aws_secretsmanager_secret_version.rosa-secrets.ocm_token)
+  rosa-secrets = jsondecode(data.aws_secretsmanager_secret_version.rosa-secrets.ocm_token)
 }
 
 
 provider "rhcs" {
 #  token = var.token
-  token = local.rosa_token.ocm_token
+  token = local.rosa-secrets.ocm_token
   url   = var.url
 }
 
