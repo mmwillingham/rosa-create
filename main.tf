@@ -25,6 +25,7 @@ provider "aws" {
   #key = var.key
 }
 
+}
 
 data "aws_secretsmanager_secret_version" "rosa-secrets" {
   secret_id = "ocm_token"
@@ -34,11 +35,10 @@ locals{
   rosa-secrets = jsondecode(
     data.aws_secretsmanager_secret_version.ocm_token.secret_string
     )
-}
 
 provider "rhcs" {
 #  token = var.token
-#  token = local.rosa-secrets.ocm_token
+  token = local.rosa-secrets.ocm_token
   url   = var.url
 }
 
