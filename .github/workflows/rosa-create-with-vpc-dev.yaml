@@ -32,6 +32,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -backend-config=backend.tfvars  
+        
       - name: Output
         id: output
         run: output=$(terraform output rosa-secrets) && echo $output && echo $token-output
