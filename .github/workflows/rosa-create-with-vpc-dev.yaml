@@ -12,8 +12,8 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
   TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
   TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
-  TF_VAR_TOKEN: ${{ secrets.ocm_token }}
-  TOKEN: ${{ secrets.ocm_token }}
+#  TF_VAR_TOKEN: ${{ secrets.ocm_token }}
+#  TOKEN: ${{ secrets.ocm_token }}
   TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
 
 jobs:
@@ -21,9 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: "Echo in file"
-      env:
-        TF_VAR_TOKEN: ${{ toJson(secrets) }}
-      run: echo "$TF_VAR_OCM_TOKEN" > "secrets.txt"
       
     - uses: actions/upload-artifact@v4
       name: Upload Artifact
@@ -48,11 +45,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: terraform plan -var-file=dev.tfvars -lock=false
-        env:
-          TF_VAR_TOKEN: ${{ secrets.ocm_token }}
       
       - name: Terraform Apply
         id: apply
         run: terraform apply --auto-approve -lock=false
-        env:
-          TF_VAR_TOKEN: ${{ secrets.ocm_token }}

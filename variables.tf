@@ -3,6 +3,13 @@ variable "token" {
   sensitive = true
 }
 
+variable "ocm_token" {
+  type      = string
+  sensitive = true
+}
+
+
+
 variable "operator_role_prefix" {
   type = string
 }
