@@ -34,8 +34,8 @@ provider "aws" {
 }
 
 provider "rhcs" {
-#  token = var.ocm_token
-  token = var.token
+#  token = var.token
+  token = var.ocm_token
   url   = var.url
 }
 
