@@ -103,8 +103,8 @@ variable "bucket" {
 variable "key" {
 }
 
-#variable "dynamoDB_table" {
-#}
-
-variable "dynamodb_table" {
+variable "dynamoDB_table" {
 }
+
+#variable "dynamodb_table" {
+#}
