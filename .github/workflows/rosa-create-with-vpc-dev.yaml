@@ -39,10 +39,6 @@ jobs:
         id: plan
         run: terraform plan -var-file=dev.tfvars #-lock=false
 
-      - name: Output
-        id: output
-        run: output=$(terraform output rosa-secrets) && echo $output && echo $token-output
-
       - name: Terraform Apply
         id: apply
         run: terraform apply -var-file=dev.tfvars --auto-approve # -lock=false
