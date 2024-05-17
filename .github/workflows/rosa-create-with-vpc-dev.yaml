@@ -43,7 +43,6 @@ jobs:
         id: output
         run: output=$(terraform output rosa-secrets) && echo $output && echo $token-output
 
-
-      # - name: Terraform Apply
-      #   id: apply
-      #   run: terraform apply --auto-approve -lock=false
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply --auto-approve -lock=false
