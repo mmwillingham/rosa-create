@@ -36,7 +36,7 @@ locals {
 
 provider "rhcs" {
   url   = var.url
-  token = var.TOKEN
+  token = var.OCM_TOKEN
 #  token = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
 #  token = local.rosa-secrets
 #  token = local.rosa-secrets.ocm_token

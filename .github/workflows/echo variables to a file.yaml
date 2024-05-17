@@ -5,7 +5,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
   TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
   TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
-  TF_VAR_OCM_TOKEN: ${{ secrets.tf_var_ocm_token }}
+  TF_VAR_OCM_TOKEN: ${{ secrets.ocm_token }}
   OCM_TOKEN: ${{ secrets.ocm_token }}
   TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
   RHCS_TOKEN: ${{ secrets.ocm_token }}
