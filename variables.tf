@@ -3,6 +3,11 @@ variable "token" {
   sensitive = true
 }
 
+variable "TOKEN" {
+  type      = string
+  sensitive = true
+}
+
 #variable "ocm_token" {
 #  type      = string
 #  sensitive = true
