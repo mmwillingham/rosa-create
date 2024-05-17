@@ -41,15 +41,14 @@ resource "null_resource" "token_value" {
   }
 }
 
+output rosa-secrets{
+  value = local.rosa-secrets
+}
 output "token-output" {
   description = "my ocm token"
   value       = local.rosa-secrets.ocm_token
   sensitive = false
 }
-
-output=$(martin output)
-echo $output
-echo $token-output
 
 #data "aws_secretsmanager_secret" "secret_name" {
 #   name = "ocm_token"
