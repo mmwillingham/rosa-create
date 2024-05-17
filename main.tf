@@ -34,7 +34,7 @@ provider "aws" {
 #  rosa-secrets = jsondecode(
 #    data.aws_secretsmanager_secret_version.ocm_token.secret_string
 #    )
-}
+#}
 
 provider "rhcs" {
 #  token = var.token
