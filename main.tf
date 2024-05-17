@@ -26,12 +26,14 @@ provider "aws" {
 }
 
 
-data "aws_secretsmanager_secret_version" "rosa-secrets" {
-  secret_id = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM"
+data "aws_secretsmanager_secret_version" "tf-secrets" {
+  secret_id = "rosa-secrets"
 }
 
 locals {
-  rosa-secrets = jsondecode(data.aws_secretsmanager_secret_version.rosa-secrets.ocm_token)
+  rosa-secrets = jsondecode(
+    data.aws_secretsmanager_secret_version.tf-secrets.secret_string
+    )
 }
 
 resource "null_resource" "token_value" {
@@ -44,6 +46,7 @@ resource "null_resource" "token_value" {
 output rosa-secrets{
   value = local.rosa-secrets
 }
+
 output "token-output" {
   description = "my ocm token"
   value       = local.rosa-secrets.ocm_token
@@ -63,7 +66,7 @@ provider "rhcs" {
 #  token = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
 #  token = local.rosa-secrets.ocm_token
   token = local.rosa-secrets
-  url   = var.url
+  url   = var.url.ocm_token
 }
 
 locals {
