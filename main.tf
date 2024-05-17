@@ -27,16 +27,6 @@ provider "aws" {
 
 
 data "aws_secretsmanager_secret_version" "rosa-secrets" {
-  secret_id = "ocm_token"
-}
-
-locals{
-  rosa-secrets = jsondecode(
-    data.aws_secretsmanager_secret_version.ocm_token.secret_string
-    )
-}
-
-data "aws_secretsmanager_secret_version" "rosa-secrets" {
   secret_id = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM"
 }
 
