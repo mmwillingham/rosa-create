@@ -17,45 +17,21 @@ env:
   TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
 
 jobs:
-  # one:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: "Echo in file"
-  #     env:
-  #       TF_VAR_TOKEN: ${{ toJson(secrets) }}
-  #     run: echo "$TF_VAR_OCM_TOKEN" > "secrets.txt"    
-  #   - uses: actions/upload-artifact@v4
-  #     name: Upload Artifact
-  #     with:
-  #       name: SecretsVariables
-  #       path: "secrets.txt"
-
   rosa-create-with-vpc:
     name: init-plan-apply
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
-        with
+        with:
           terraform_wrapper: false
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend-config=backend.tfvars
-
-      - name: "Echo in file"
-        env:
-          TF_VAR_TOKEN: ${{ toJson(secrets) }}
-        run: echo "$token" > "secrets.txt"    
-      - uses: actions/upload-artifact@v4
-        name: Upload Artifact
-        with:
-          name: SecretsVariables
-          path: "secrets.txt"        
+        run: terraform init -backend-config=backend.tfvars  
       
       - name: Terraform Plan
         id: plan
