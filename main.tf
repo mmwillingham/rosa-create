@@ -7,7 +7,7 @@ terraform {
     # Version 1.4.0 released 10/19/23
     rhcs = {
       source  = "terraform-redhat/rhcs"
-      version = ">= 1.1.0"      
+      version = ">= 1.6.2" 
     }
     # helm = {
     #   source = "hashicorp/helm"
@@ -111,7 +111,6 @@ resource "rhcs_cluster_rosa_classic" "rosa_sts_cluster" {
   destroy_timeout    = 60  
   depends_on         = [time_sleep.wait_for_roles]
   version            = var.openshift_version
-  token              = local.ocm_token
   admin_credentials  = {
      password        = var.ADMIN_PASSWORD
      username        = var.admin_username 
