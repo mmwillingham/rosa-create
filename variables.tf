@@ -1,4 +1,4 @@
-variable "token" {
+variable "ocm_token" {
   type      = string
   sensitive = true
 }
