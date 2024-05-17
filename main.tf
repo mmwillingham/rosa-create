@@ -38,14 +38,9 @@ provider "rhcs" {
   url   = var.url
 }
 
-
-data "aws_secretsmanager_secret" "by-arn" {
-  arn = "arn:aws:secretsmanager:us-east-2:261642263042:secret:OCM_TOKEN-FSu3cK"
-}
-
-data "aws_secretsmanager_secret" "by-arn" {
-  arn = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-bolauder-tfSQyu"
-}
+#data "aws_secretsmanager_secret" "by-arn" {
+#  arn = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-bolauder-tfSQyu"
+#}
 
 data "aws_secretsmanager_secret" "by-name" {
   name = "rosa-bolauder"
