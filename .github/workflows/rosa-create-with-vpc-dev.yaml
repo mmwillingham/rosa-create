@@ -33,6 +33,7 @@ jobs:
         id: init
         run: terraform init -backend-config=backend.tfvars  
 
+# NOTE: The backend entries are populated after plan, but removed if there is nothing to do.
       - name: Terraform Plan
         id: plan
         run: terraform plan -var-file=dev.tfvars #-lock=false
@@ -40,8 +41,8 @@ jobs:
       - name: Output
         id: output
         run: output=$(terraform output rosa-secrets) && echo $output && echo $token-output
-        
-              
+
+
       # - name: Terraform Apply
       #   id: apply
       #   run: terraform apply --auto-approve -lock=false
