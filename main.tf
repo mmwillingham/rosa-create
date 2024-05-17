@@ -26,19 +26,28 @@ provider "aws" {
 }
 
 
-#data "aws_secretsmanager_secret_version" "rosa-secrets" {
-#  secret_id = "ocm_token"
-#}
+data "aws_secretsmanager_secret_version" "rosa-secrets" {
+  secret_id = "ocm_token"
+}
 
-#locals{
-#  rosa-secrets = jsondecode(
-#    data.aws_secretsmanager_secret_version.ocm_token.secret_string
-#    )
-#}
+locals{
+  rosa-secrets = jsondecode(
+    data.aws_secretsmanager_secret_version.ocm_token.secret_string
+    )
+}
+
+data "aws_secretsmanager_secret_version" "rosa-secrets" {
+  secret_id = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM"
+}
+
+locals {
+  rosa_token = jsondecode(data.aws_secretsmanager_secret_version.rosa-secrets.ocm_token)
+}
+
 
 provider "rhcs" {
 #  token = var.token
-#  token = local.rosa-secrets.ocm_token
+  token = local.rosa_token.ocm_token
   url   = var.url
 }
 
