@@ -35,9 +35,9 @@ jobs:
       - name: Output
         id: output
         run: |
-        output=$(terraform output rosa-secrets)
-        run: echo $output
-        run: echo $token-output
+          output=$(terraform output rosa-secrets)
+          echo $output
+          echo $token-output
       
       - name: Terraform Plan
         id: plan
