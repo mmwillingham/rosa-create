@@ -61,7 +61,8 @@ output "token-output" {
 provider "rhcs" {
 #  token = var.token
 #  token = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
-  token = local.rosa-secrets.ocm_token
+#  token = local.rosa-secrets.ocm_token
+  token = local.rosa-secrets.rosa-secrets
   url   = var.url
 }
 
