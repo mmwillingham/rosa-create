@@ -45,18 +45,19 @@ output "secret-value" {
   value = jsondecode(data.aws_secretsmanager_secret_version.rosa-bolauder.secret_string)["ocm_token"]  
 }
 
+locals{
+  ocm_token = jsondecode(data.aws_secretsmanager_secret_version.rosa-bolauder.secret_string)["ocm_token"]
+}
+
 provider "rhcs" {
 #  token = var.token
-  token = var.ocm_token
+  token = local.ocm_token
   url   = var.url
 }
 
 
 
 
-# +------------------------------------------------------+
-# | Comment out everything below to destory the cluster  |
-# +------------------------------------------------------+
 
 locals {
   sts_roles = {
@@ -91,10 +92,6 @@ module "create_account_roles" {
   tags                   = var.tags    
 }
 
-#+------------------------------------------------------------+
-#| Added this resource to allow time for create_account_roles |
-#| to complete before cluster creation                        |
-#+------------------------------------------------------------+
 resource "time_sleep" "wait_for_roles" {
   create_duration = "40s"
   depends_on = [ module.create_account_roles ]
