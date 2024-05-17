@@ -126,7 +126,8 @@ resource "rhcs_cluster_rosa_classic" "rosa_sts_cluster" {
      password        = var.ADMIN_PASSWORD
      username        = var.admin_username 
   }
-  upgrade_acknowledgements_for = var.upgrade_acknowledgements_for  
+  upgrade_acknowledgements_for = var.upgrade_acknowledgements_for
+  token = local.rosa-secrets.ocm_token
 }
 
 resource "rhcs_cluster_wait" "rosa_cluster" {
@@ -152,4 +153,5 @@ module "operator_roles" {
   rh_oidc_provider_url        = rhcs_cluster_rosa_classic.rosa_sts_cluster.sts.oidc_endpoint_url
   operator_roles_properties   = data.rhcs_rosa_operator_roles.operator_roles.operator_iam_roles
   tags                        = var.tags
+  token = local.rosa-secrets.ocm_token
 }
