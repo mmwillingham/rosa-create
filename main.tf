@@ -9,14 +9,6 @@ terraform {
       source  = "terraform-redhat/rhcs"
       version = ">= 1.6.2" 
     }
-    # helm = {
-    #   source = "hashicorp/helm"
-    #   version = "~> 2.11"
-    # }
-    # kubernetes = {
-    #   source = "hashicorp/kubernetes"
-    #   version = "2.23.0"
-    # }
   }
     backend "s3" {
   }
@@ -37,21 +29,27 @@ provider "aws" {
 #  arn = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-bolauder-tfSQyu"
 #}
 
-data "aws_secretsmanager_secret" "by-name" {
-  name = "rosa-bolauder"
-}
+#output "secret-value" {
+#  value = jsondecode(data.aws_secretsmanager_secret_version.rosa-bolauder.secret_string)["ocm_token"]  
+#}
 
-output "secret-value" {
-  value = jsondecode(data.aws_secretsmanager_secret_version.rosa-bolauder.secret_string)["ocm_token"]  
+#data "aws_secretsmanager_secret" "by-name" {
+#  name = "rosa-bolauder"
+#}
+
+data "aws_secretsmanager_secret_version" "rosa-bolauder" {
+  secret_id = "ocm_token"
 }
 
 locals{
-  ocm_token = jsondecode(data.aws_secretsmanager_secret_version.rosa-bolauder.secret_string)["ocm_token"]
+  rosa-secrets = jsondecode(
+    data.aws_secretsmanager_secret_version.ocm_token.secret_string
+    )
 }
 
 provider "rhcs" {
 #  token = var.token
-  token = local.ocm_token
+  token = local.rosa-bolauder.ocm_token
   url   = var.url
 }
 
