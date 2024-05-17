@@ -48,6 +48,6 @@ jobs:
         id: plan
         run: terraform plan -var-file=dev.tfvars -lock=false
       
-      - name: Terraform Apply
-        id: apply
-        run: terraform apply --auto-approve -lock=false
+      # - name: Terraform Apply
+      #   id: apply
+      #   run: terraform apply --auto-approve -lock=false
