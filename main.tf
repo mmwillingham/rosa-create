@@ -44,7 +44,7 @@ resource "null_resource" "token_value" {
 output "token-output" {
   description = "my ocm token"
   value       = local.rosa-secrets.ocm_token
-  sensitive = true
+  sensitive = false
 }
 
 
@@ -59,6 +59,7 @@ output "token-output" {
 provider "rhcs" {
 #  token = var.token
 #  token = data.aws_secretsmanager_secret_version.secret_credentials.secret_string
+  token = local.rosa-secrets.ocm_token
   url   = var.url
 }
 
