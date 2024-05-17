@@ -47,28 +47,28 @@ jobs:
         name: SecretsVariables
         path: "secrets.txt"
 
-  # rosa-create-with-vpc:
-  #   name: init-plan-apply
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  rosa-create-with-vpc:
+    name: init-plan-apply
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Set up Terraform
-  #       uses: hashicorp/setup-terraform@v3
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
 
-  #     - name: Terraform Init
-  #       id: init
-  #       run: terraform init -backend-config=backend.tfvars
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend-config=backend.tfvars
       
-  #     - name: Terraform Plan
-  #       id: plan
-  #       run: terraform plan -var-file=dev.tfvars -lock=false
-  #       env:
-  #         TF_VAR_TOKEN: ${{ secrets.ocm_token }}
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var-file=dev.tfvars -lock=false
+        env:
+          TF_VAR_TOKEN: ${{ secrets.ocm_token }}
       
-  #     - name: Terraform Apply
-  #       id: apply
-  #       run: terraform apply --auto-approve -lock=false
-  #       env:
-  #         TF_VAR_TOKEN: ${{ secrets.ocm_token }}
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply --auto-approve -lock=false
+        env:
+          TF_VAR_TOKEN: ${{ secrets.ocm_token }}
