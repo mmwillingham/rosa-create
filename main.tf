@@ -2,9 +2,9 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.20.0"
+      version = ">= 5.50.0"
     }
-    # Version 1.4.0 released 10/19/23
+
     rhcs = {
       source  = "terraform-redhat/rhcs"
       version = ">= 1.6.2" 
@@ -25,19 +25,8 @@ provider "aws" {
   #key = var.key
 }
 
-#data "aws_secretsmanager_secret" "by-arn" {
-#  arn = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-bolauder-tfSQyu"
-#}
 
-#output "secret-value" {
-#  value = jsondecode(data.aws_secretsmanager_secret_version.rosa-bolauder.secret_string)["ocm_token"]  
-#}
-
-#data "aws_secretsmanager_secret" "by-name" {
-#  name = "rosa-bolauder"
-#}
-
-data "aws_secretsmanager_secret_version" "rosa-bolauder" {
+data "aws_secretsmanager_secret_version" "rosa-secrets" {
   secret_id = "ocm_token"
 }
 
@@ -49,7 +38,7 @@ locals{
 
 provider "rhcs" {
 #  token = var.token
-  token = local.rosa-bolauder.ocm_token
+  token = local.rosa-secrets.ocm_token
   url   = var.url
 }
 
@@ -75,7 +64,7 @@ data "rhcs_versions" "all" {}
 
 module "create_account_roles" {
   source  = "terraform-redhat/rosa-sts/aws"
-  version = "0.0.14"
+  version = "0.0.15"
 
   create_operator_roles = false
   create_oidc_provider  = false
@@ -128,7 +117,7 @@ data "rhcs_rosa_operator_roles" "operator_roles" {
 
 module "operator_roles" {
   source  = "terraform-redhat/rosa-sts/aws"
-  version = "0.0.14"
+  version = "0.0.15"
 
   create_operator_roles = true
   create_oidc_provider  = true
