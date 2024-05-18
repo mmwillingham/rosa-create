@@ -41,8 +41,9 @@ jobs:
         # Documentation: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets_github.html
         with:
           secret-ids: |
-             arn:aws:secretsmanager:us-east-2:261642263042:secret:ocm_rosa_token_v1-IYAStT
-             TF_VAR_OCM_TOKEN,arn:aws:secretsmanager:us-east-2:261642263042:secret:ocm_rosa_token_v1-IYAStT
+             arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
+             rosa_secret_v1
+             TF_VAR_OCM_TOKEN,arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
           parse-json-secrets: true
 #            secretId1 # An environment variable will be created with the same name as the secret, but in uppercase
 #            ENV_VAR_NAME, secretId2 # In this case, you can specify a different name than the secret (alias)
