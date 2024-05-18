@@ -17,8 +17,8 @@ terraform {
 provider "aws" {
   region = var.cloud_region
   # Added these two because plan was stuck on var.AWS_ACCESS_KEY_ID
-  access_key = var.AWS_ACCESS_KEY_ID
-  secret_key = var.AWS_SECRET_ACCESS_KEY
+#  access_key = var.AWS_ACCESS_KEY_ID
+#  secret_key = var.AWS_SECRET_ACCESS_KEY
 }
 
 #####################
@@ -40,6 +40,12 @@ provider "aws" {
 
 #####################
 
+#####################
+From Github action workflow
+ROSA_SECRET_V1_OCM_TOKEN='***'
+RHCS_TOKEN_OCM_TOKEN='***'
+TF_VAR_OCM_TOKEN_OCM_TOKEN='***'
+######################
 
 provider "rhcs" {
   url   = var.url
