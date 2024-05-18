@@ -13,7 +13,7 @@ variable "ADMIN_PASSWORD" {
   sensitive = true  
 }
 
-variable "ocm_token" {
+variable "OCM_TOKEN" {
   # https://console.redhat.com/openshift/token/rosa
   type      = string
   sensitive = true
