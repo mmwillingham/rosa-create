@@ -54,9 +54,9 @@ jobs:
         run: terraform init -backend-config=backend.tfvars  
 
 # NOTE: The backend entries are populated after plan, but removed if there is nothing to do.
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: terraform plan -var-file=dev.tfvars #-lock=false
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var-file=dev.tfvars #-lock=false
 
       # - name: Terraform Apply
       #   id: apply
