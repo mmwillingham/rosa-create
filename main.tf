@@ -37,7 +37,6 @@ provider "aws" {
 #locals {
 #  tf-token_secret = jsondecode(data.aws_secretsmanager_secret_version.tf-token.secret_string)
 #}
-
 #####################
 
 #####################
