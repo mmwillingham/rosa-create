@@ -26,27 +26,26 @@ provider "aws" {
 #data "aws_secretsmanager_secret_version" "tf-secrets" {
 #  secret_id = "rosa-secrets"
 #}
-
 #locals {
 #  rosa-secrets = jsondecode(data.aws_secretsmanager_secret_version.tf-secrets.secret_string)
 #}
 
 # https://blog.gitguardian.com/how-to-handle-secrets-in-terraform/
-data "aws_secretsmanager_secret_version" "tf-token" {
-  secret_id = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM"
-}
-
-locals {
-  tf-token_secret = jsondecode(data.aws_secretsmanager_secret_version.tf-token.secret_string)
-}
+#data "aws_secretsmanager_secret_version" "tf-token" {
+#  secret_id = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM"
+#}
+#locals {
+#  tf-token_secret = jsondecode(data.aws_secretsmanager_secret_version.tf-token.secret_string)
+#}
 
 #####################
 
 
 provider "rhcs" {
   url   = var.url
+  token = var.ocm_token
 #  token = var.ocm_token # Use this when token is stored in github secrets
-  token = local.tf-token_secret["ocm_token"]
+#  token = local.tf-token_secret["ocm_token"]
 }
 
 locals {
