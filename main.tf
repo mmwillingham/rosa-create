@@ -41,10 +41,10 @@ provider "aws" {
 #####################
 
 #####################
-From Github action workflow
-ROSA_SECRET_V1_OCM_TOKEN='***'
-RHCS_TOKEN_OCM_TOKEN='***'
-TF_VAR_OCM_TOKEN_OCM_TOKEN='***'
+# From Github action workflow
+# ROSA_SECRET_V1_OCM_TOKEN='***'
+# RHCS_TOKEN_OCM_TOKEN='***'
+# TF_VAR_OCM_TOKEN_OCM_TOKEN='***'
 ######################
 
 provider "rhcs" {
