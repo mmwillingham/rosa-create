@@ -30,11 +30,26 @@ jobs:
         uses: actions/checkout@v4
       
       - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4.0.2
         with:
           role-to-assume: arn:aws:iam::261642263042:role/GitHubAction-AssumeRoleWithAction
-          role-session-name: samplerolesession
-          aws-region: ${{ env.AWS_REGION }}        
+          role-session-name: githubrolesession
+          aws-region: ${{ env.AWS_REGION }}
+          
+      - name: Get AWS Secrets
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        # Documentation: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets_github.html
+        with:
+          secret-ids: |
+             arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM
+             TF_VAR_ocm_token,arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM
+             parse-json-secrets: true
+#            secretId1 # An environment variable will be created with the same name as the secret, but in uppercase
+#            ENV_VAR_NAME, secretId2 # In this case, you can specify a different name than the secret (alias)
+#             Assuming secret named mysecret has value: {"name":"bolauder"}. # When json is parsed, this will create environment variable: NAME: "bolauder"
+#          name-transformation: (Optional) uppercase|lowercase|none
+#          parse-json-secrets: (Optional) true|false
+     
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
@@ -46,14 +61,14 @@ jobs:
         run: terraform init -backend-config=backend.tfvars  
 
 # NOTE: The backend entries are populated after plan, but removed if there is nothing to do.
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -var-file=dev.tfvars #-lock=false
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: terraform plan -var-file=dev.tfvars #-lock=false
 
-      - name: Terraform Apply
-        id: apply
-        run: terraform apply -var-file=dev.tfvars --auto-approve # -lock=false
+      # - name: Terraform Apply
+      #   id: apply
+      #   run: terraform apply -var-file=dev.tfvars --auto-approve # -lock=false
       
-      - name: Terraform Destroy
-        id: destroy
-        run: terraform destroy -var-file=dev.tfvars --auto-approve # -lock=false        
+      # - name: Terraform Destroy
+      #   id: destroy
+      #   run: terraform destroy -var-file=dev.tfvars --auto-approve # -lock=false        
