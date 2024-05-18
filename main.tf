@@ -24,13 +24,13 @@ provider "aws" {
 
 #####################
 # From Github action workflow
-#   ROSA_SECRET_V1_OCM_TOKEN='***'
-#   ROSA_SECRET_V1_ADMIN_PASSWORD='***'
+##[debug]TF_VAR_OCM_TOKEN='***'
+##[debug]TF_VAR_ADMIN_PASSWORD='***'
 ######################
 
 provider "rhcs" {
   url   = var.url
-  token = var.ROSA_SECRET_V1_OCM_TOKEN
+  token = var.OCM_TOKEN
 #  token = var.ocm_token # Use this when token is stored in github secrets
 #  token = local.tf-token_secret["ocm_token"]
 }
@@ -88,7 +88,7 @@ resource "rhcs_cluster_rosa_classic" "rosa_sts_cluster" {
   version            = var.openshift_version
   admin_credentials  = {
 #     password        = var.ADMIN_PASSWORD
-      password        = var.ROSA_SECRET_V1_ADMIN_PASSWORD
+      password        = var.ADMIN_PASSWORD
      username        = var.admin_username 
   }
   upgrade_acknowledgements_for = var.upgrade_acknowledgements_for
