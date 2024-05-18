@@ -40,8 +40,8 @@ jobs:
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         # Documentation: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets_github.html
         with:
+#         showing a few valid examples or secret-ids
           secret-ids: |
-#            showing a few valid examples:
              arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
              RHCS_TOKEN,rosa_secret_v1
              TF_VAR_OCM_TOKEN,arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
