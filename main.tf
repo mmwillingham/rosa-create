@@ -21,34 +21,16 @@ provider "aws" {
 #  secret_key = var.AWS_SECRET_ACCESS_KEY
 }
 
-#####################
-# AWS Secrets Manager
-#data "aws_secretsmanager_secret_version" "tf-secrets" {
-#  secret_id = "rosa-secrets"
-#}
-#locals {
-#  rosa-secrets = jsondecode(data.aws_secretsmanager_secret_version.tf-secrets.secret_string)
-#}
-
-# https://blog.gitguardian.com/how-to-handle-secrets-in-terraform/
-#data "aws_secretsmanager_secret_version" "tf-token" {
-#  secret_id = "arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM"
-#}
-#locals {
-#  tf-token_secret = jsondecode(data.aws_secretsmanager_secret_version.tf-token.secret_string)
-#}
-#####################
 
 #####################
 # From Github action workflow
-# ROSA_SECRET_V1_OCM_TOKEN='***'
-# RHCS_TOKEN_OCM_TOKEN='***'
-# TF_VAR_OCM_TOKEN_OCM_TOKEN='***'
+#   ROSA_SECRET_V1_OCM_TOKEN='***'
+#   ROSA_SECRET_V1_ADMIN_PASSWORD='***'
 ######################
 
 provider "rhcs" {
   url   = var.url
-  token = var.ocm_token
+  token = var.ROSA_SECRET_V1_OCM_TOKEN
 #  token = var.ocm_token # Use this when token is stored in github secrets
 #  token = local.tf-token_secret["ocm_token"]
 }
@@ -105,7 +87,8 @@ resource "rhcs_cluster_rosa_classic" "rosa_sts_cluster" {
   depends_on         = [time_sleep.wait_for_roles]
   version            = var.openshift_version
   admin_credentials  = {
-     password        = var.ADMIN_PASSWORD
+#     password        = var.ADMIN_PASSWORD
+      password        = var.ROSA_SECRET_V1_ADMIN_PASSWORD
      username        = var.admin_username 
   }
   upgrade_acknowledgements_for = var.upgrade_acknowledgements_for
