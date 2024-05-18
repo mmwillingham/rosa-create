@@ -9,14 +9,6 @@ on: workflow_dispatch
 
 env:
   AWS_REGION: "us-east-2"
-#  AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-#  AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
-#  TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-#  TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
-#  TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
-#  TF_VAR_ocm_token: ${{ secrets.tf_var_ocm_token }}
-#  OCM_TOKEN: ${{ secrets.ocm_token }}
-#  RHCS_TOKEN: ${{ secrets.ocm_token }}
 
 jobs:
   rosa-create-with-vpc:
