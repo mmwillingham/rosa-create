@@ -8,11 +8,12 @@ name: rosa-create-with-vpc-dev
 on: workflow_dispatch
 
 env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
-  TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-  TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
-  TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
+  AWS_REGION: "us-east-2"
+#  AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+#  AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+#  TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+#  TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
+#  TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
 #  TF_VAR_ocm_token: ${{ secrets.tf_var_ocm_token }}
 #  OCM_TOKEN: ${{ secrets.ocm_token }}
 #  RHCS_TOKEN: ${{ secrets.ocm_token }}
@@ -21,9 +22,19 @@ jobs:
   rosa-create-with-vpc:
     name: init-plan-apply
     runs-on: ubuntu-latest
+    permissions: # This and the next two lines are required for accessing AWS as an OIDC provider
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::261642263042:role/GitHubAction-AssumeRoleWithAction
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}        
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
