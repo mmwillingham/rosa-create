@@ -43,7 +43,7 @@ jobs:
           secret-ids: |
              arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM
              TF_VAR_OCM_TOKEN,arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa-secrets-IxrALM
-             parse-json-secrets: true
+          parse-json-secrets: true
 #            secretId1 # An environment variable will be created with the same name as the secret, but in uppercase
 #            ENV_VAR_NAME, secretId2 # In this case, you can specify a different name than the secret (alias)
 #             Assuming secret named mysecret has value: {"name":"bolauder"}. # When json is parsed, this will create environment variable: NAME: "bolauder"
