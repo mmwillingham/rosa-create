@@ -43,9 +43,15 @@ jobs:
 #            secretId1 # An environment variable will be created with the same name as the secret, but in uppercase
 #            ENV_VAR_NAME, secretId2 # In this case, you can specify a different name than the secret (alias)
 #             Assuming secret named mysecret has value: {"name":"bolauder"}. # When json is parsed, this will create environment variable: NAME: "bolauder"
+#
+#            ROSA implications:
+#            This syntax: TF_VAR,arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
+#            Will result in: TF_VAR_ADMIN_PASSWORD and TF_VAR_OCM_TOKEN (assuming your secret contains these values.)
+#            Then add an entry to variables.tf with these without TF_VAR_   like:  variable "ADMIN_PASSWORD" and variable "OCM_TOKEN"
+#            And reference them in main.tf like so: token = var.OCM_TOKEN  and password = var.ADMIN_PASSWORD
+#             
 #          name-transformation: (Optional) uppercase|lowercase|none
 #          parse-json-secrets: (Optional) true|false
-     
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
@@ -61,9 +67,9 @@ jobs:
         id: plan
         run: terraform plan -var-file=dev.tfvars #-lock=false
 
-      # - name: Terraform Apply
-      #   id: apply
-      #   run: terraform apply -var-file=dev.tfvars --auto-approve # -lock=false
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -var-file=dev.tfvars --auto-approve # -lock=false
       
       # - name: Terraform Destroy
       #   id: destroy
