@@ -8,22 +8,50 @@ name: rosa-create-with-vpc-dev
 on: workflow_dispatch
 
 env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
-  TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-  TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key }}
-  TF_VAR_ocm_token: ${{ secrets.tf_var_ocm_token }}
-  OCM_TOKEN: ${{ secrets.ocm_token }}
-  TF_VAR_ADMIN_PASSWORD: ${{ secrets.admin_password }}
-  RHCS_TOKEN: ${{ secrets.ocm_token }}
+  AWS_REGION: "us-east-2"
 
 jobs:
   rosa-create-with-vpc:
     name: init-plan-apply
     runs-on: ubuntu-latest
+    permissions: # This and the next two lines are required for accessing AWS as an OIDC provider
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          role-to-assume: arn:aws:iam::261642263042:role/GitHubAction-AssumeRoleWithAction
+          role-session-name: githubrolesession
+          aws-region: ${{ env.AWS_REGION }}
+          
+      - name: Get AWS Secrets
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        # Documentation: https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets_github.html
+#           Valid examples:
+#           arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
+#           RHCS_TOKEN,rosa_secret_v1
+#           TF_VAR_OCM_TOKEN,arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
+
+        with:
+          secret-ids: |
+            TF_VAR,arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
+          parse-json-secrets: true
+#            secretId1 # An environment variable will be created with the same name as the secret, but in uppercase
+#            ENV_VAR_NAME, secretId2 # In this case, you can specify a different name than the secret (alias)
+#             Assuming secret named mysecret has value: {"name":"bolauder"}. # When json is parsed, this will create environment variable: NAME: "bolauder"
+#
+#            ROSA implications:
+#            This syntax: TF_VAR,arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
+#            Will result in: TF_VAR_ADMIN_PASSWORD and TF_VAR_OCM_TOKEN (assuming your secret contains these values.)
+#            Then add an entry to variables.tf with these without TF_VAR_   like:  variable "ADMIN_PASSWORD" and variable "OCM_TOKEN"
+#            And reference them in main.tf like so: token = var.OCM_TOKEN  and password = var.ADMIN_PASSWORD
+#             
+#          name-transformation: (Optional) uppercase|lowercase|none
+#          parse-json-secrets: (Optional) true|false
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3

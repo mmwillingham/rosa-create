@@ -1,4 +1,19 @@
-variable "ocm_token" {
+#variable "AWS_ACCESS_KEY_ID" {
+#  type = string
+#  sensitive = true  
+#}
+
+#variable "AWS_SECRET_ACCESS_KEY" {
+#  type = string
+#  sensitive = true  
+#}
+
+variable "ADMIN_PASSWORD" {
+  type = string
+  sensitive = true  
+}
+
+variable "OCM_TOKEN" {
   # https://console.redhat.com/openshift/token/rosa
   type      = string
   sensitive = true
@@ -57,21 +72,6 @@ variable "path" {
 
 variable "admin_username" {
   type = string
-}
-
-variable "ADMIN_PASSWORD" {
-  type = string
-  sensitive = true  
-}
-
-variable "AWS_ACCESS_KEY_ID" {
-  type = string
-  sensitive = true  
-}
-
-variable "AWS_SECRET_ACCESS_KEY" {
-  type = string
-  sensitive = true  
 }
 
 variable "upgrade_acknowledgements_for" {

@@ -17,25 +17,22 @@ terraform {
 provider "aws" {
   region = var.cloud_region
   # Added these two because plan was stuck on var.AWS_ACCESS_KEY_ID
-  access_key = var.AWS_ACCESS_KEY_ID
-  secret_key = var.AWS_SECRET_ACCESS_KEY
+#  access_key = var.AWS_ACCESS_KEY_ID
+#  secret_key = var.AWS_SECRET_ACCESS_KEY
 }
 
-#####################
-# AWS Secrets Manager
-#data "aws_secretsmanager_secret_version" "tf-secrets" {
-#  secret_id = "rosa-secrets"
-#}
 
-#locals {
-#  rosa-secrets = jsondecode(data.aws_secretsmanager_secret_version.tf-secrets.secret_string)
-#}
 #####################
-
+# From Github action workflow
+##[debug]TF_VAR_OCM_TOKEN='***'
+##[debug]TF_VAR_ADMIN_PASSWORD='***'
+######################
 
 provider "rhcs" {
   url   = var.url
-  token = var.ocm_token
+  token = var.OCM_TOKEN
+#  token = var.ocm_token # Use this when token is stored in github secrets
+#  token = local.tf-token_secret["ocm_token"]
 }
 
 locals {
@@ -90,7 +87,8 @@ resource "rhcs_cluster_rosa_classic" "rosa_sts_cluster" {
   depends_on         = [time_sleep.wait_for_roles]
   version            = var.openshift_version
   admin_credentials  = {
-     password        = var.ADMIN_PASSWORD
+#     password        = var.ADMIN_PASSWORD
+      password        = var.ADMIN_PASSWORD
      username        = var.admin_username 
   }
   upgrade_acknowledgements_for = var.upgrade_acknowledgements_for
