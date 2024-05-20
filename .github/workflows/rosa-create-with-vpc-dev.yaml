@@ -38,7 +38,7 @@ jobs:
 
         with:
           secret-ids: |
-            TF_VAR,arn:aws:secretsmanager:us-east-2:261642263042:secret:rosa_secret_v1-1Xxbef
+            TF_VAR,arn:aws:secretsmanager:us-east-2:997649724060:secret:rosa_secret_v1-qysNU9
           parse-json-secrets: true
 #            secretId1 # An environment variable will be created with the same name as the secret, but in uppercase
 #            ENV_VAR_NAME, secretId2 # In this case, you can specify a different name than the secret (alias)
