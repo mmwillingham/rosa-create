@@ -1,12 +1,12 @@
-cluster_name = "bosez-gdabs5"
+cluster_name = "bosez_1"
 openshift_version            = "4.15.10"
     ## For available stable versions: rosa list versions --channel-group stable
 
 upgrade_acknowledgements_for = "4.15"
 cloud_region = "us-east-2"
 admin_username = "bolauder"
-account_role_prefix = "bosez-12345678"
-operator_role_prefix = "bosez-12345678"
+account_role_prefix = "bosez_123"
+operator_role_prefix = "bosez_123"
 
 ## For 3 availability zones
 # multi_az                     = true
@@ -20,7 +20,7 @@ availability_zones           = ["us-east-2a"]
 replicas                     = 2
 
 # not sure if I need this
-bucket         = "rosa-tfstate-20240517-2"
-dynamodb_table = "rosa-tfstate-20240517-2"
-dynamoDB_table = "rosa-tfstate-20240517-2"
+bucket         = "rosa-tfstate-20240520"
+dynamodb_table = "rosa-tfstate-20240520"
+dynamoDB_table = "rosa-tfstate-20240520"
 key            = "terraform.tfstate"
