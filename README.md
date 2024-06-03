@@ -23,11 +23,14 @@ Actions > Terraform-GitHub-Actions-BACKEND > Run workflow
 ```
 export REGION="us-east-2"
 export AWS_ACCOUNT_ID=997649724060
+# NOTE: for the following command, the thumbprint is the same for every GitHub repo.
 export GITHUB_OIDC_ARN=$(aws --region "$REGION" iam create-open-id-connect-provider --url "https://token.actions.githubusercontent.com" --thumbprint-list "6938fd4d98bab03faadb97b34396831e3780aea1" --client-id-list 'sts.amazonaws.com' --output text)
 export GITHUB_ORG="mmwillingham"
 export GITHUB_REPO1="rosa-create"
 export GITHUB_REPO2="rosa-create-existing-vpc"
 export GITHUB_REPO3="rosa-create-vpc"
+export GITHUB_BRANCH="main"
+
 
 # Quick verify
 aws iam list-open-id-connect-providers --output text
@@ -57,7 +60,7 @@ echo $OCM_TOKEN_SECRET_ARN
 ```
 ### Create AWS secrets policy
 ```
-# You may want to allow access to a wildcard instead of a specific secret arn.
+# You may want to allow access to a wildcard instead of a specific secret arn by uncommenting the line for Resource and commenting the previous line.
 
 cat << EOF > secret_policy.json
 {
@@ -69,6 +72,7 @@ cat << EOF > secret_policy.json
         "secretsmanager:DescribeSecret"
       ],
       "Resource": ["$OCM_TOKEN_SECRET_ARN"]
+      #"Resource": "*"
       }]
 }
 EOF
@@ -251,7 +255,7 @@ ATTACHEDPOLICIES	arn:aws:iam::997649724060:policy/github-access-to-rosa_secret_v
 ATTACHEDPOLICIES	arn:aws:iam::997649724060:policy/GitHub-create_clusterAccess	GitHub-create_clusterAccess
 ATTACHEDPOLICIES	arn:aws:iam::997649724060:policy/GitHub-S3Access	GitHub-S3Access
 ```
-## Create ROSA cluster
+## Prepare GitHub files
 ```
 # Clone repo
 git clone https://github.com/mmwillingham/rosa-create
