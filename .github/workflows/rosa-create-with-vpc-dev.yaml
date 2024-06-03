@@ -9,6 +9,8 @@ on: workflow_dispatch
 
 env:
   AWS_REGION: "us-east-2"
+  # For better variablizing, see https://github.com/mmwillingham/rosa-create-existing-vpc/blob/main/.github/workflows/rosa-create-existing-vpc-dev.yaml
+  
 
 jobs:
   rosa-create-with-vpc:
