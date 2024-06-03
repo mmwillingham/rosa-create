@@ -328,10 +328,11 @@ bucket         = "rosa-tfstate-20240517-2"
 dynamodb_table = "rosa-tfstate-20240517-2"
 dynamoDB_table = "rosa-tfstate-20240517-2"
 key            = "terraform.tfstate"
+```
 
 # Run workflow
 Github > Actions > (select workflow for your <environment>) > Run workflow > Select branch > Run workflow
-NOTE: I'm currently running this from a branch named token-in-secrets-manager.
+NOTE: I'm currently running this the main branch.
 This is set to manual trigger. It can be triggered in many other ways.
 
 
