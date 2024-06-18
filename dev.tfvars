@@ -5,8 +5,8 @@ openshift_version            = "4.15.10"
 upgrade_acknowledgements_for = "4.15"
 cloud_region = "us-east-2"
 admin_username = "bolauder"
-account_role_prefix = "bosez-ar-123456"
-operator_role_prefix = "bosez-or-123456"
+account_role_prefix = "bosez-ar-20240618"
+operator_role_prefix = "bosez-or-20240618"
 
 ## For 3 availability zones
 # multi_az                     = true
@@ -20,7 +20,7 @@ availability_zones           = ["us-east-2a"]
 replicas                     = 2
 
 # not sure if I need this
-bucket         = "rosa-tfstate-20240520-2"
-dynamodb_table = "rosa-tfstate-20240520-2"
-dynamoDB_table = "rosa-tfstate-20240520-2"
+bucket         = "rosa-tfstate-20240618"
+dynamodb_table = "rosa-tfstate-20240618"
+dynamoDB_table = "rosa-tfstate-20240618"
 key            = "terraform.tfstate"

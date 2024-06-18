@@ -22,15 +22,14 @@ Actions > Terraform-GitHub-Actions-BACKEND > Run workflow
 ### Create OIDC
 ```
 export REGION="us-east-2"
-export AWS_ACCOUNT_ID=997649724060
-# NOTE: for the following command, the thumbprint is the same for every GitHub repo.
-export GITHUB_OIDC_ARN=$(aws --region "$REGION" iam create-open-id-connect-provider --url "https://token.actions.githubusercontent.com" --thumbprint-list "6938fd4d98bab03faadb97b34396831e3780aea1" --client-id-list 'sts.amazonaws.com' --output text)
+export AWS_ACCOUNT_ID=923927169563
 export GITHUB_ORG="mmwillingham"
 export GITHUB_REPO1="rosa-create"
 export GITHUB_REPO2="rosa-create-existing-vpc"
 export GITHUB_REPO3="rosa-create-vpc"
 export GITHUB_BRANCH="main"
-
+# NOTE: for the following command, the thumbprint is the same for every GitHub repo.
+export GITHUB_OIDC_ARN=$(aws --region "$REGION" iam create-open-id-connect-provider --url "https://token.actions.githubusercontent.com" --thumbprint-list "6938fd4d98bab03faadb97b34396831e3780aea1" --client-id-list 'sts.amazonaws.com' --output text)
 
 # Quick verify
 aws iam list-open-id-connect-providers --output text
@@ -42,7 +41,9 @@ echo $REGION, $AWS_ACCOUNT_ID, $GITHUB_OIDC_ARN, $GITHUB_ORG, $GITHUB_REPO1, $GI
 # Create a secret (bucket) in Secrets Manager
 # NOTE: This will create a single secret (bucket) in AWS containing multiple key/value pairs
 
+https://console.redhat.com/openshift/token
 OCM_TOKEN="<redacted>"
+echo $OCM_TOKEN
 
 ADMIN_PASSWORD="RedHatOpenShift123"
 
@@ -82,6 +83,7 @@ cat secret_policy.json
 
 # Create an IAM Access Policy
 
+# You may get syntax issue with secret_policy.json. Delete the commented line.
 SECRET_POLICY_ARN=$(aws --region "$REGION" --query Policy.Arn --output text iam create-policy --policy-name github-access-to-${OCM_TOKEN_SECRET_NAME}-policy --policy-document file://secret_policy.json)
 echo $SECRET_POLICY_ARN
 ```
